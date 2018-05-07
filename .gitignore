@@ -1,0 +1,6 @@
+composer.lock
+vendor
+config/client_secret.json
+config/config.php
+
+!.gitkeep
