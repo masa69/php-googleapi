@@ -7,7 +7,7 @@ try {
 	putenv('GOOGLE_APPLICATION_CREDENTIALS=' . $config->json);
 
 	$client = new Google_Client();
-    $client->setApplicationName('Google Calendar API PHP Sample');
+	$client->setApplicationName('Google Calendar API PHP Sample');
 	$client->setScopes(Google_Service_Calendar::CALENDAR_READONLY);
 	$client->useApplicationDefaultCredentials();
 
