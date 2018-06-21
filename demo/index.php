@@ -14,8 +14,31 @@ try {
 	$service = new Google_Service_Calendar($client);
 	$events = $service->events->listEvents($config->calendarId);
 
-	foreach ($events->getItems() as $event) {
-		echo $event->getSummary() . "<hr>\n";
+	if (!$lists = $events->getItems()) {
+		return;
+	}
+
+	foreach ($lists as $list) {
+		if (empty($list->summary)) {
+			continue;
+			// echo '<pre>';
+			// var_dump($list);
+			// echo '</pre>';
+		}
+		if (empty($list->start->dateTime)) {
+			echo "<small><time>{$list->start->date}</time></small>";
+		} else {
+			$start = date('Y-m-d H:i', strtotime($list->start->dateTime));
+			$end = date('Y-m-d H:i', strtotime($list->end->dateTime));
+			echo "<small><time>{$start} 〜 {$end}</time></small>";
+		}
+		echo "<h3>{$list->summary}</h3>";
+		// echo "<h3>予約済み</h3>";
+		echo "<p>{$list->description}</p>";
+		echo "<hr>";
+		// echo '<pre>';
+		// var_dump($list);
+		// break;
 	}
 
 } catch (Exception $e) {
